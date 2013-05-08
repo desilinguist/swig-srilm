@@ -31,11 +31,15 @@ print "p('there are some') = " . $p3 . "\n\n";
   #     and the end respectively
   # (2) The log prob of a probability is the sum of all individual 
   #     n-gram log probabilities
-$sprob = srilm::getSentenceProb($n,"there are some good",4);
+$sprob = srilm::getSentenceProb($n, "there are some good", 4);
 print "p('there are some good') = " . $sprob . "\n\n";
 
-$sprob = srilm::getSentencePpl($n,"there are some good",4);
+$sprob = srilm::getSentencePpl($n,"there are some good", 4);
 print "ppl('there are some good') = " . $sprob . "\n\n";
+
+# number of OOVs in a sentence
+$noov = srilm::numOOVs($n, "there are some foobar", 4);
+print "nOOVs('there are some foobar') = " . $noov . "\n\n";
 
 # Query the LM to get the total log probability for the file named 'corpus'
 $corpus = 'test.txt';
