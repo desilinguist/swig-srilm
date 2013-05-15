@@ -1,6 +1,7 @@
 #include "Prob.h"
 #include "Ngram.h"
 #include "Vocab.h"
+#include "File.h"
 
 #include "srilm.h"
 #include <cstdio>
@@ -195,7 +196,8 @@ float getTrigramProb(Ngram* ngram, const char* ngramstr) {
 // probability and perplexity at the sentence level
 unsigned sentenceStats(Ngram* ngram, const char* sentence, unsigned length, TextStats &stats) {
     float ans;
-    const char* words[100];
+    // maxWordsPerLine is defined in File.h and so we will reuse it here
+    const char* words[maxWordsPerLine + 1];
     unsigned indices[2];
     unsigned numparsed;
     char* scp;
@@ -204,7 +206,7 @@ unsigned sentenceStats(Ngram* ngram, const char* sentence, unsigned length, Text
     scp = strdupa(sentence);
 
     // Parse the bigram into the words
-    numparsed = Vocab::parseWords(scp, (VocabString *)words, 100);
+    numparsed = Vocab::parseWords(scp, (VocabString *)words, maxWordsPerLine + 1);
     if(numparsed != length) {
         fprintf(stderr, "Error: Number of words in sentence does not match given length.\n");
         return 1;
