@@ -1,3 +1,5 @@
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/desilinguist/swig-srilm/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
 ### SWIG-SRILM: A SWIG-based wrapper for an SRILM language model
 ==========
 
@@ -48,9 +50,4 @@ The output should be the same as above.
 #### Usage:
 Usage is clearly illustrated in files `test.pl` and `test.py`. 
 
-
-
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/desilinguist/swig-srilm/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
