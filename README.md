@@ -11,7 +11,7 @@ This package contains files to generate Perl and Python wrappers for
 - GNU make
 - Simplified Wrapper & Interface Generator ([SWIG](http://swig.org/)) 
 - A local Python and/or Perl installation
-- The SRILM toolkit (v1.7.1). If you have an older version of SRILM e.g., the 1.5.x series then you should use the `old_srilm` branch.
+- The SRILM toolkit (v1.7.1). If you have an older version of SRILM e.g., the 1.5.x series then you should use the `old_srilm` branch. Note that SRILM should have been compiled as position independent code. You can do that by using the command `MAKE_PIC=yes make` when compiling SRILM.
 
 #### Installation:
 1. Modify the following environment variables at the top of the included Makefile:
