@@ -6,7 +6,7 @@ PERL_INC=/usr/lib64/perl5/CORE
 python: clean _srilm.so
 
 _srilm.so: srilm.o srilm_python_wrap.o
-	g++ -shared $^ -loolm -ldstruct -lmisc -L$(SRILM_LIBS) -o $@
+	g++ -shared $^ -loolm -ldstruct -lmisc -lz -lgomp -L$(SRILM_LIBS) -o $@
 
 srilm_python_wrap.o: srilm_python_wrap.c
 	g++ -c -fpic $< -I/usr/local/include/ -I$(SRILM_INC) -I$(PYTHON_INC)
@@ -17,7 +17,7 @@ srilm_python_wrap.c: srilm_python.i
 perl: clean srilm.so
 
 srilm.so: srilm.o srilm_perl_wrap.o
-	g++ -shared $^ -loolm -ldstruct -lmisc -L$(SRILM_LIBS) -o $@
+	g++ -shared $^ -loolm -ldstruct -lmisc -lz -lgomp -L$(SRILM_LIBS) -o $@
 
 srilm_perl_wrap.o: srilm_perl_wrap.c
 	g++ -c -fpic $< -I/usr/local/include/ -I$(SRILM_INC) -I$(PERL_INC)

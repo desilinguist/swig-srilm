@@ -41,7 +41,7 @@ const char* getWordForIndex(unsigned i) {
 // Read in an LM file into the model
 int readLM(Ngram* ngram, const char* filename) {
     File file(filename, "r");
-    if(!file) {
+    if(file.error()) {
         fprintf(stderr,"Error:: Could not open file %s\n", filename);
         return 0;
     }
@@ -277,7 +277,7 @@ int numOOVs(Ngram* ngram, const char* sentence, unsigned length) {
 unsigned corpusStats(Ngram* ngram, const char* filename, TextStats &stats) {
     File corpus(filename, "r");
 
-    if(!corpus) {
+    if(corpus.error()) {
         fprintf(stderr,"Error:: Could not open file %s\n", filename);
         return 1;
     }
