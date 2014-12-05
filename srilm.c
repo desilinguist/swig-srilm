@@ -49,60 +49,6 @@ int readLM(Ngram* ngram, const char* filename) {
         return ngram->read(file, 0);
 }
 
-// Get the ngram probability of the given string
-/*float getNgramProb(Ngram* ngram, const char* ngramstr, unsigned order) {
-    const char* words[10];
-    unsigned int indices[order];
-    int numparsed, histsize, i, j;
-    char* scp;
-    float ans, adder;
-
-    // Duplicate string so that we don't mess up the original
-    scp = strdupa(ngramstr);
-
-    // Parse the given string into words
-    numparsed = Vocab::parseWords(scp, (VocabString *)words, 10);
-    if(numparsed != order) {
-        fprintf(stderr, "Error: Given order %d not correct.\n", order);
-        return 0;
-    }
-
-    // Get indices for the words obtained above, if you don't find them, then add them
-    // to the vocabulary and then get the indices.
-    swig_srilm_vocab->addWords((VocabString *)words, (VocabIndex *)indices, order);
-    ans = 0;
-
-    for(i=(order-1); i>=0; i--) {
-
-        histsize = i;
-
-        if(histsize == 0) {
-            unsigned int hist[1] = {Vocab_None};
-            if(indices[i] == swig_srilm_vocab->ssIndex()) {
-                adder = LogP_One;
-            }
-            else {
-                adder = getWordProb(ngram, indices[i], hist, cap);
-                if(adder == LogP_Zero)
-                    return BIGNEG;
-            }
-        }
-        else {
-            unsigned int hist[histsize+1];
-            for(j=0; j<histsize; j++)
-                hist[j] = indices[i-j-1];
-            hist[histsize] = Vocab_None;
-            adder = getWordProb(ngram, indices[i], hist, cap);
-            if(adder == LogP_Zero)
-                return BIGNEG;
-        }
-        ans += adder;
-    }
-    ans /= log10(exp(1.0));
-    return ans;
-}
-*/
-
 // Get word probability
 float getWordProb(Ngram* ngram, unsigned w, unsigned* context) {
     return (float)ngram->wordProb(w, context);
@@ -187,6 +133,45 @@ float getTrigramProb(Ngram* ngram, const char* ngramstr) {
 
     ans = getWordProb(ngram, indices[2], hist);
 
+    if(ans == LogP_Zero)
+        return BIGNEG;
+
+    return ans;
+}
+
+// get generic n-gram probability (up to n=7)
+float getNgramProb(Ngram* ngram, const char* ngramstr, unsigned order) {
+    const char* words[7];
+    unsigned int indices[order];
+    int numparsed, histsize, i, j;
+    char* scp;
+    float ans;
+
+    // Duplicate string so that we don't mess up the original
+    scp = strdupa(ngramstr);
+
+    // Parse the given string into words
+    numparsed = Vocab::parseWords(scp, (VocabString *)words, 7);
+    if(numparsed != order) {
+        fprintf(stderr, "Error: Given order (%d) does not match number of words (%d).\n", order, numparsed);
+        return 0;
+    }
+
+    // Get indices for the words obtained above, if you don't find them, then add them
+    // to the vocabulary and then get the indices.
+    swig_srilm_vocab->addWords((VocabString *)words, (VocabIndex *)indices, order);
+
+    // Create a history array of size "order" and populate it
+    unsigned hist[order];
+    for(i=order; i>1; i--) {
+        hist[order-i] = indices[i-2];
+    }
+    hist[order-1] = Vocab_None;
+
+    // Compute the ngram probability
+    ans = getWordProb(ngram, indices[order-1], hist);
+
+    // Return the representation of log(0) if needed
     if(ans == LogP_Zero)
         return BIGNEG;
 

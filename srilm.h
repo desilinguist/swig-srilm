@@ -13,6 +13,7 @@ unsigned getIndexForWord(const char* s);
 const char* getWordForIndex(unsigned i);
 int readLM(Ngram* ngram, const char* filename);
 float getWordProb(Ngram* ngram, unsigned word, unsigned* context);
+float getNgramProb(Ngram* ngram, const char* ngramstr, unsigned order);
 float getUnigramProb(Ngram* ngram, const char* word);
 float getBigramProb(Ngram* ngram, const char* ngramstr);
 float getTrigramProb(Ngram* ngram, const char* ngramstr);
