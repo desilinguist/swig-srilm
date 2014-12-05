@@ -25,22 +25,31 @@ use the python module. You can run the included `test.py` script to check
 whether the compiled module works correctly. The output of test.py should be
 the following:
 ```
-   There are 32 unigrams in this LM
-   There are 42 bigrams in this LM
-   There are 1 trigrams in this LM
+1. Number of n-grams:
+   There are 11868 unigrams in this LM
+   There are 59481 bigrams in this LM
+   There are 16744 trigrams in this LM
+   There are 13787 4-grams in this LM
+   There are 12082 5-grams in this LM
 
-   p('good') = -1.3822170496
-   p('nitin madnani') = -1.23044896126
-   p('there are some') = -0.176091298461
+2. N-gram log probabilities:
+   p('good') = -3.49373698235
+   p('of the') = -0.558740794659
+   p('nitin madnani') = -99.0
+   p('there are some') = -0.985605716705
+   p('do more about your') = -0.469523012638
+   p('or whatever has yet to') = -0.53226429224
 
-   p('there are some good') = -4.79909944534
+3. Sentence log probabilities and perplexities:
+   p('there are some good') = -9.85836982727
+   ppl('there are some good') = 93.6858444214
 
-   ppl('there are some good') = 9.11632728577
+4. OOvs:
+   nOOVs('there are some foobar') = 1
 
-   nOOVs('there are some foobar') =  1
-  
-   Logprob for the file test.txt = -6.77615213394
-   Perplexity for the file test.txt = 9.29012870789
+5. Corpus log probabilties and perplexities:
+   Logprob for the file test.txt = -33.6016654968
+   Perplexity for the file test.txt = 94.7476806641
 ```
 3. To create a Perl module, run `make perl` in this directory. 
 Copy `srilm.so` and `srilm.pm` to the directory of your choice. 
