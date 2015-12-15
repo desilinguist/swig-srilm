@@ -290,15 +290,12 @@ float getCorpusProb(Ngram* ngram, const char* filename) {
 
 float getCorpusPpl(Ngram* ngram, const char* filename) {
     TextStats stats;
-    float ans;
+    float ans = -1.0;
 
     if(!corpusStats(ngram, filename, stats)) {
         int denom = stats.numWords - stats.numOOVs - stats.zeroProbs + stats.numSentences;
         if (denom > 0) {
             ans = LogPtoPPL(stats.prob / denom);
-        }
-        else {
-            ans = -1.0;
         }
     }
 
