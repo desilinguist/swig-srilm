@@ -13,6 +13,8 @@ This package contains files to generate Perl and Python wrappers for
 - A local Python and/or Perl installation
 - The SRILM toolkit (v1.7.1). If you have an older version of SRILM e.g., the 1.5.x series then you should use the `old_srilm` branch. Note that SRILM should have been compiled as position independent code. You can do that by using the command `MAKE_PIC=yes make` when compiling SRILM.
 
+*IMPORTANT*: This code has only been tested on x86-64 machines running Linux. It will probably not work on other UNIXes, including Mac OS X.
+
 #### Installation:
 - Modify the following environment variables at the top of the included Makefile:
  - `SRILM_LIBS` : The directory containing the SRILM libraries
