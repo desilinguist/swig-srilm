@@ -93,7 +93,6 @@ float getBigramProb(Ngram* ngram, const char* ngramstr) {
         fprintf(stderr, "Error: Given ngram is not a bigram.\n");
         return -1;
     }
-    // free(scp);
 
     // Add the words to the vocabulary
     swig_srilm_vocab->addWords((VocabString *)words, (VocabIndex *)indices, 2);
@@ -108,6 +107,7 @@ float getBigramProb(Ngram* ngram, const char* ngramstr) {
     if(ans == LogP_Zero)
         return BIGNEG;
 
+    free(scp);
     return ans;
 }
 
