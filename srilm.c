@@ -89,11 +89,11 @@ float getBigramProb(Ngram* ngram, const char* ngramstr) {
 
     // Parse the bigram into the words
     numparsed = Vocab::parseWords(scp, (VocabString *)words, 2);
-    free(scp);
     if(numparsed != 2) {
         fprintf(stderr, "Error: Given ngram is not a bigram.\n");
         return -1;
     }
+    free(scp);
 
     // Add the words to the vocabulary
     swig_srilm_vocab->addWords((VocabString *)words, (VocabIndex *)indices, 2);
@@ -123,11 +123,11 @@ float getTrigramProb(Ngram* ngram, const char* ngramstr) {
     scp = strdup(ngramstr);
 
     numparsed = Vocab::parseWords(scp, (VocabString *)words, 6);
-    free(scp);
     if(numparsed != 3) {
         fprintf(stderr, "Error: Given ngram is not a trigram.\n");
         return 0;
     }
+    free(scp);
 
     swig_srilm_vocab->addWords((VocabString *)words, (VocabIndex *)indices, 3);
 
@@ -154,11 +154,11 @@ float getNgramProb(Ngram* ngram, const char* ngramstr, unsigned order) {
 
     // Parse the given string into words
     numparsed = Vocab::parseWords(scp, (VocabString *)words, 7);
-    free(scp);
     if(numparsed != order) {
         fprintf(stderr, "Error: Given order (%d) does not match number of words (%d).\n", order, numparsed);
         return 0;
     }
+    free(scp);
 
     // Get indices for the words obtained above, if you don't find them, then add them
     // to the vocabulary and then get the indices.
@@ -195,15 +195,17 @@ unsigned sentenceStats(Ngram* ngram, const char* sentence, unsigned length, Text
 
     // Parse the bigram into the words
     numparsed = Vocab::parseWords(scp, (VocabString *)words, maxWordsPerLine + 1);
-    free(scp);
     if(numparsed != length) {
         fprintf(stderr, "Error: Number of words in sentence does not match given length.\n");
-        return 1;
+        ans = 1;
     }
     else {
         ngram->sentenceProb(words, stats);
-        return 0;
+        ans = 0;
     }
+
+    free(scp);
+    return ans;
 }
 
 
