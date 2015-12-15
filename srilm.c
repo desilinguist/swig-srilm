@@ -85,7 +85,7 @@ float getBigramProb(Ngram* ngram, const char* ngramstr) {
     float ans;
 
     // Create a copy of the input string to be safe
-    scp = strdupa(ngramstr);
+    scp = strdup(ngramstr);
 
     // Parse the bigram into the words
     numparsed = Vocab::parseWords(scp, (VocabString *)words, 2);
