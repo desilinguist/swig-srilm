@@ -107,7 +107,9 @@ float getBigramProb(Ngram* ngram, const char* ngramstr) {
     if(ans == LogP_Zero)
         return BIGNEG;
 
+    // free the memory we allocated when duplicating
     free(scp);
+
     return ans;
 }
 
@@ -127,7 +129,6 @@ float getTrigramProb(Ngram* ngram, const char* ngramstr) {
         fprintf(stderr, "Error: Given ngram is not a trigram.\n");
         return 0;
     }
-    free(scp);
 
     swig_srilm_vocab->addWords((VocabString *)words, (VocabIndex *)indices, 3);
 
@@ -137,6 +138,9 @@ float getTrigramProb(Ngram* ngram, const char* ngramstr) {
 
     if(ans == LogP_Zero)
         return BIGNEG;
+
+    // free the memory we allocated when duplicating
+    free(scp);
 
     return ans;
 }
@@ -158,7 +162,6 @@ float getNgramProb(Ngram* ngram, const char* ngramstr, unsigned order) {
         fprintf(stderr, "Error: Given order (%d) does not match number of words (%d).\n", order, numparsed);
         return 0;
     }
-    free(scp);
 
     // Get indices for the words obtained above, if you don't find them, then add them
     // to the vocabulary and then get the indices.
@@ -178,12 +181,16 @@ float getNgramProb(Ngram* ngram, const char* ngramstr, unsigned order) {
     if(ans == LogP_Zero)
         return BIGNEG;
 
+    // free the memory we allocated when duplicating
+    free(scp);
+
     return ans;
 }
 
 // probability and perplexity at the sentence level
 unsigned sentenceStats(Ngram* ngram, const char* sentence, unsigned length, TextStats &stats) {
     float ans;
+
     // maxWordsPerLine is defined in File.h and so we will reuse it here
     const char* words[maxWordsPerLine + 1];
     unsigned indices[2];
@@ -204,7 +211,9 @@ unsigned sentenceStats(Ngram* ngram, const char* sentence, unsigned length, Text
         ans = 0;
     }
 
+    // free the memory we allocated when duplicating
     free(scp);
+
     return ans;
 }
 
