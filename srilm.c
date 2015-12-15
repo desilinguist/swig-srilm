@@ -85,7 +85,7 @@ float getBigramProb(Ngram* ngram, const char* ngramstr) {
     float ans;
 
     // Create a copy of the input string to be safe
-    scp = strdup(ngramstr);
+    scp = strdupa(ngramstr);
 
     // Parse the bigram into the words
     numparsed = Vocab::parseWords(scp, (VocabString *)words, 2);
@@ -93,7 +93,7 @@ float getBigramProb(Ngram* ngram, const char* ngramstr) {
         fprintf(stderr, "Error: Given ngram is not a bigram.\n");
         return -1;
     }
-    free(scp);
+    // free(scp);
 
     // Add the words to the vocabulary
     swig_srilm_vocab->addWords((VocabString *)words, (VocabIndex *)indices, 2);
