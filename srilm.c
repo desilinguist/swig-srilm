@@ -85,10 +85,11 @@ float getBigramProb(Ngram* ngram, const char* ngramstr) {
     float ans;
 
     // Create a copy of the input string to be safe
-    scp = strdupa(ngramstr);
+    scp = strdup(ngramstr);
 
     // Parse the bigram into the words
     numparsed = Vocab::parseWords(scp, (VocabString *)words, 2);
+    free(scp);
     if(numparsed != 2) {
         fprintf(stderr, "Error: Given ngram is not a bigram.\n");
         return -1;
@@ -119,9 +120,10 @@ float getTrigramProb(Ngram* ngram, const char* ngramstr) {
     float ans;
 
     // Duplicate
-    scp = strdupa(ngramstr);
+    scp = strdup(ngramstr);
 
     numparsed = Vocab::parseWords(scp, (VocabString *)words, 6);
+    free(scp);
     if(numparsed != 3) {
         fprintf(stderr, "Error: Given ngram is not a trigram.\n");
         return 0;
@@ -148,10 +150,11 @@ float getNgramProb(Ngram* ngram, const char* ngramstr, unsigned order) {
     float ans;
 
     // Duplicate string so that we don't mess up the original
-    scp = strdupa(ngramstr);
+    scp = strdup(ngramstr);
 
     // Parse the given string into words
     numparsed = Vocab::parseWords(scp, (VocabString *)words, 7);
+    free(scp);
     if(numparsed != order) {
         fprintf(stderr, "Error: Given order (%d) does not match number of words (%d).\n", order, numparsed);
         return 0;
@@ -188,10 +191,11 @@ unsigned sentenceStats(Ngram* ngram, const char* sentence, unsigned length, Text
     char* scp;
 
     // Create a copy of the input string to be safe
-    scp = strdupa(sentence);
+    scp = strdup(sentence);
 
     // Parse the bigram into the words
     numparsed = Vocab::parseWords(scp, (VocabString *)words, maxWordsPerLine + 1);
+    free(scp);
     if(numparsed != length) {
         fprintf(stderr, "Error: Number of words in sentence does not match given length.\n");
         return 1;
@@ -296,8 +300,10 @@ float getCorpusPpl(Ngram* ngram, const char* filename) {
         else {
             ans = -1.0;
         }
-        return ans;
     }
+
+    return ans;
+
 }
 
 
