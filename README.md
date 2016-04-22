@@ -56,8 +56,23 @@ the following:
 ```
 - To create a Perl module, run `make perl` in this directory. 
 Copy `srilm.so` and `srilm.pm` to the directory of your choice. 
-Run the included Perl script 'test.pl' to test whether the compiled module works correctly.
-The output should be the same as above.
+Run the included Perl script 'test.pl' to test whether the compiled module works correctly. The output should be the same as above.
+
+#### Mac OS X
+
+*Note*: This has only been tested on OS X El Capitan and only with the built-in versions of python (2.7.10) and perl (5.18).
+
+- Check out the `macosx` branch.
+
+- Modify the following environment variables at the top of `Makefile.osx`:
+ - `SRILM_LIBS` : The directory containing the SRILM libraries
+ - `SRILM_INC`  : The directory containing the SRILM header files
+
+**IMPORTANT**: DO NOT change the `PYTHON_INC` and `PERL_INC` variables as they are set to be the default values for OS X El Capitan.
+
+- To compile the python module, run `make -f Makefile.osx python` and to compile the perl module, run `make -f Makefile.osx perl`. Note that the compiled modules will *only* work with the default OS X python and perl interpreters, i.e., `/usr/bin/python` and `/usr/bin/perl`.
+
+- You should be able to run `/usr/bin/python test.py` and `/usr/bin/perl test.pl` to test that the modules work and obtain the same output in the Linux case.
 
 #### Usage:
 Usage is clearly illustrated in files `test.pl` and `test.py`. 
