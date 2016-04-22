@@ -13,13 +13,12 @@ This package contains files to generate Perl and Python wrappers for
 - A local Python and/or Perl installation
 - The SRILM toolkit (v1.7.1). If you have an older version of SRILM e.g., the 1.5.x series then you should use the `old_srilm` branch. Note that SRILM should have been compiled as position independent code. You can do that by using the command `MAKE_PIC=yes make` when compiling SRILM.
 
-*IMPORTANT*: This code has only been tested on x86-64 machines running Linux or OS X. 
 
 ### Installation:
 
 #### Linux
 
-- Modify the following environment variables at the top of `Makefile`:
+- Modify the following environment variables at the top of the included Makefile:
  - `SRILM_LIBS` : The directory containing the SRILM libraries
  - `SRILM_INC`  : The directory containing the SRILM header files
  - `PYTHON_INC` : The directory containing the python header files
@@ -30,6 +29,7 @@ Copy `_srilm.so` and `srilm.py` to your directory where you want to
 use the python module. You can run the included `test.py` script to check 
 whether the compiled module works correctly. The output of test.py should be
 the following:
+
 ```
 1. Number of n-grams:
    There are 11868 unigrams in this LM
@@ -65,6 +65,8 @@ Run the included Perl script 'test.pl' to test whether the compiled module works
 #### Mac OS X
 
 *Note*: This has only been tested on OS X El Capitan and only with the built-in versions of python (2.7.10) and perl (5.18).
+
+- Check out the `macosx` branch.
 
 - Modify the following environment variables at the top of `Makefile.osx`:
  - `SRILM_LIBS` : The directory containing the SRILM libraries
