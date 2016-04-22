@@ -1,12 +1,12 @@
-SRILM_LIBS=/tmp/srilm/lib/macosx
-SRILM_INC=/tmp/srilm/include
+SRILM_LIBS=/Users/nmadnani/work/srilm/lib/macosx
+SRILM_INC=/Users/nmadnani/work/srilm/include
 PYTHON_INC=/System/Library/Frameworks/Python.framework/Headers
-PERL_INC=/usr/lib64/perl5/CORE
+PERL_INC=/System/Library/Perl/5.18/darwin-thread-multi-2level/CORE
 
 python: clean _srilm.so
 
 _srilm.so: srilm.o srilm_python_wrap.o
-	g++ -shared $^ -lpython -lz -liconv -loolm -ldstruct -lmisc  -L$(SRILM_LIBS) -o $@
+	g++ -shared $^ -lpython -lz -liconv -loolm -ldstruct -lmisc -L$(SRILM_LIBS) -o $@
 
 srilm_python_wrap.o: srilm_python_wrap.c
 	g++ -c -fpic $< -I/usr/local/include -I$(SRILM_INC) -I$(PYTHON_INC)
@@ -14,10 +14,10 @@ srilm_python_wrap.o: srilm_python_wrap.c
 srilm_python_wrap.c: srilm_python.i
 	swig -python $<
 
-perl: clean srilm.so
+perl: clean srilm.bundle
 
-srilm.so: srilm.o srilm_perl_wrap.o
-	g++ -shared $^ -loolm -ldstruct -lmisc -lz  -L$(SRILM_LIBS) -o $@
+srilm.bundle: srilm.o srilm_perl_wrap.o
+	g++ -shared $^ -lperl -lz -liconv -loolm -ldstruct -lmisc  -L$(SRILM_LIBS) -L$(PERL_INC) -o $@
 
 srilm_perl_wrap.o: srilm_perl_wrap.c
 	g++ -c -fpic $< -I/usr/local/include -I$(SRILM_INC) -I$(PERL_INC)
@@ -26,7 +26,7 @@ srilm_perl_wrap.c: srilm_perl.i
 	swig -perl $<
 
 srilm.o: srilm.c
-	g++ -c -fpic $< -I/usr/local/include -I$(SRILM_INC) -I$(PYTHON_INC)
+	g++ -c -fpic $< -I/usr/local/include -I$(SRILM_INC)
 
 clean:
 	\rm -fr srilm.o srilm_*_wrap.* *.so srilm.py* srilm.pm
