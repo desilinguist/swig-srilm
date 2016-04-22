@@ -1,21 +1,23 @@
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/desilinguist/swig-srilm/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
-### SWIG-SRILM: A SWIG-based wrapper for an SRILM language model
+## SWIG-SRILM: A SWIG-based wrapper for an SRILM language model
 ==========
 
-#### Description
+### Description
 This package contains files to generate Perl and Python wrappers for 
 [SRILM](http://www.speech.sri.com/projects/srilm/) language models.
 
-#### Requirements
+### Requirements
 - GNU make
 - Simplified Wrapper & Interface Generator ([SWIG](http://swig.org/)) 
 - A local Python and/or Perl installation
 - The SRILM toolkit (v1.7.1). If you have an older version of SRILM e.g., the 1.5.x series then you should use the `old_srilm` branch. Note that SRILM should have been compiled as position independent code. You can do that by using the command `MAKE_PIC=yes make` when compiling SRILM.
 
-*IMPORTANT*: This code has been extensively tested on x86-64 machines running Linux. There's a branch (`macosx`) that should compile on the latest version of OS X 10.11 (assuming you have installed `swig`) but only with the built-in python (`/usr/bin/python`). Please freel free to try it and let me know if it does/doesn't work.
 
-#### Installation:
+### Installation:
+
+#### Linux
+
 - Modify the following environment variables at the top of the included Makefile:
  - `SRILM_LIBS` : The directory containing the SRILM libraries
  - `SRILM_INC`  : The directory containing the SRILM header files
@@ -27,6 +29,7 @@ Copy `_srilm.so` and `srilm.py` to your directory where you want to
 use the python module. You can run the included `test.py` script to check 
 whether the compiled module works correctly. The output of test.py should be
 the following:
+
 ```
 1. Number of n-grams:
    There are 11868 unigrams in this LM
@@ -54,6 +57,7 @@ the following:
    Logprob for the file test.txt = -33.6016654968
    Perplexity for the file test.txt = 94.7476806641
 ```
+
 - To create a Perl module, run `make perl` in this directory. 
 Copy `srilm.so` and `srilm.pm` to the directory of your choice. 
 Run the included Perl script 'test.pl' to test whether the compiled module works correctly. The output should be the same as above.
@@ -74,7 +78,7 @@ Run the included Perl script 'test.pl' to test whether the compiled module works
 
 - You should be able to run `/usr/bin/python test.py` and `/usr/bin/perl test.pl` to test that the modules work and obtain the same output in the Linux case.
 
-#### Usage:
+### Usage:
 Usage is clearly illustrated in files `test.pl` and `test.py`. 
 
 
