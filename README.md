@@ -68,11 +68,15 @@ Run the included Perl script 'test.pl' to test whether the compiled module works
 
 - Check out the `macosx` branch.
 
+- Make sure you have compiled the SRILM libraries (`MAKE_PIC=yes make`).
+
+- Go to the directory containing the SRILM header files (`$SRILM/include`), open `File.h` and comment out the line that says `#include "zio.h"`. This is necessary because even though SRILM is supposed to rename the `zopen()` function to `my_zopen()` on OS X since `zlib` is installed by default, it does not seem to work. So, this is a hacky workaround. 
+
 - Modify the following environment variables at the top of `Makefile.osx`:
  - `SRILM_LIBS` : The directory containing the SRILM libraries
  - `SRILM_INC`  : The directory containing the SRILM header files
 
-**IMPORTANT**: DO NOT change the `PYTHON_INC` and `PERL_INC` variables as they are set to be the default values for OS X El Capitan.
+   **IMPORTANT**: DO NOT change the `PYTHON_INC` and `PERL_INC` variables as they are set to be the default values for OS X El Capitan.
 
 - To compile the python module, run `make -f Makefile.osx python` and to compile the perl module, run `make -f Makefile.osx perl`. Note that the compiled modules will *only* work with the default OS X python and perl interpreters, i.e., `/usr/bin/python` and `/usr/bin/perl`.
 
