@@ -1,6 +1,6 @@
 SRILM_LIBS=/Users/nmadnani/work/srilm/lib/macosx
 SRILM_INC=/Users/nmadnani/work/srilm/include
-PYTHON_INC=/System/Library/Frameworks/Python.framework/Headers
+PYTHON_INC=/System/Library/Frameworks/Python.framework/Versions/2.7/Headers
 PERL_INC=/System/Library/Perl/5.18/darwin-thread-multi-2level/CORE
 
 python: clean _srilm.so
